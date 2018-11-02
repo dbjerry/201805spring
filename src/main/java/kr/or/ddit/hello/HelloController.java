@@ -80,24 +80,29 @@ public class HelloController {
 	
 	/* 기존 servlet 방식 */
 	@RequestMapping("/request")
-	public String request(HttpServletRequest request) {
+	public String request(HttpServletRequest request, Model model) {
 		
 		//기존 servlet 파라미터 확인 방식
 		String userId = request.getParameter("userId");
-		String password = request.getParameter("pass");
+		String pass = request.getParameter("pass");
+		
+		model.addAttribute("userId", userId + "_attr");
+		model.addAttribute("pass", pass + "_attr");
 		
 		//logger를 이용한 출력
 		logger.debug("userId : {}", userId);
-		logger.debug("password : {}", password);
+		logger.debug("pass : {}", pass);
 		
 		return "hello";
 	}
 	
 	/* spring : value object의 속성이름과 동일한 이름의 파라미터를 자동으로 설정해준다. */
 	@RequestMapping("/vo")
-	public String vo(UserVo uservo) {
+	public String vo(UserVo uservo, Model model) {
 		
 		logger.debug("uservo : {}", uservo);
+		
+		model.addAttribute("uservo", uservo);
 		
 		return "hello";
 	}
@@ -108,7 +113,7 @@ public class HelloController {
 	//3. void			:	response객체에 개발자가 직접 응답을 작성
 	//ModelAndView
 	@RequestMapping("/modelAndView")
-	public ModelAndView modelAndView() {
+	public ModelAndView modelAndView(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		
 		List<String> minions = new ArrayList<String>();
@@ -116,8 +121,16 @@ public class HelloController {
 		minions.add("bob");
 		minions.add("jerry");
 		
+		
+		String userId = request.getParameter("userId");
+		
+		logger.debug("userId_mav : {}", userId);
+		
 		//model.addAttribute("minions", minions);
 		mav.addObject("minions", minions);
+		mav.addObject("userid", userId + "_attr");
+		
+		
 		
 		//viewName
 		mav.setViewName("hello");
@@ -133,9 +146,6 @@ public class HelloController {
 		writer.write("<html>");
 		writer.write("spring voidMethod");
 		writer.write("</html>");
-		
-		
-		
 	}
 	
 }

@@ -3,8 +3,10 @@ package kr.or.ddit.user.web;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import ch.qos.logback.classic.Logger;
 import kr.or.ddit.user.model.UserVo;
@@ -26,7 +28,7 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping("/loginProcess")
+	@RequestMapping(value="/loginProcess", method=RequestMethod.POST)
 	public String process(UserVo uservo) {
 		
 		String getUserId = uservo.getUserId();
@@ -34,7 +36,7 @@ public class UserController {
 		
 		if(check(getUserId, getUserPass)) {
 			return "main";
-		
+			
 		} else {
 			return "login/login";
 		
