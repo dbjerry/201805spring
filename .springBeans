@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.9.6.201809180658-RELEASE]]></pluginVersion>
+	<configSuffixes>
+		<configSuffix><![CDATA[xml]]></configSuffix>
+	</configSuffixes>
+	<enableImports><![CDATA[false]]></enableImports>
+	<configs>
+		<config>src/main/resources/kr/or/ddit/ioc/application-context.xml</config>
+		<config>src/main/resources/kr/or/ddit/ioc/application-context-collection.xml</config>
+		<config>src/main/resources/kr/or/ddit/ioc/application-context-placeholder.xml</config>
+		<config>src/main/resources/kr/or/ddit/ioc/application-context-scan.xml</config>
+		<config>src/main/resources/kr/or/ddit/config/spring/root-context.xml</config>
+		<config>src/main/resources/kr/or/ddit/config/spring/servlet-context.xml</config>
+	</configs>
+	<autoconfigs>
+	</autoconfigs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>
