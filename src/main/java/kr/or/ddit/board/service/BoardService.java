@@ -13,7 +13,7 @@ import kr.or.ddit.board.model.BoardVO;
 @Service("boardService")
 public class BoardService implements IBoardService{
 	@Resource(name="boardDao")
-	//@Resource(name="getBoardDao") ==> JavaConfigTest.java용
+	//@Resource(name="getBoardDao") //==> JavaConfigTest.java용
 	private IBoardDao boardDao;
 	
 	/* 생성자 */
