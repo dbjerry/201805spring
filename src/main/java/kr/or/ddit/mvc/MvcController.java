@@ -1,7 +1,10 @@
 package kr.or.ddit.mvc;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -9,9 +12,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import ch.qos.logback.classic.Logger;
+import kr.or.ddit.file.model.FileVo;
+import kr.or.ddit.file.service.FileService;
+import kr.or.ddit.file.service.IFileService;
+import kr.or.ddit.file.util.FileUtil;
 
 //@ModelAttribute에 의해 저장된 속성이 있을 경우
 // 재요청시 @ModelAttribute가 적용된 메서드를 재실행하지 않고
@@ -68,5 +78,55 @@ public class MvcController {
 		logger.debug("libcd : {}", libcd);
 		return "mvc/view";
 	}
+	
+	
+	//fileupload 테스트를 위한 view (get)
+	@RequestMapping(value="/mvc/fileupload", method= {RequestMethod.GET})
+	public String fileuploadView() {
+		return "mvc/fileuploadView";
+	}
+	
+	
+	//fileupload (파일전송)을 처리하기 위한 controller method (post)
+	@RequestMapping(value="/mvc/fileupload", method= {RequestMethod.POST})
+	public String fileupload(@RequestPart("uploadFile") MultipartFile part) {
+		IFileService fileService = new FileService();
+		
+		logger.debug("partSize : {}", part.getSize());
+		logger.debug("OriginalFileName : {}", part.getOriginalFilename());
+		
+		//1. File객체 생성 
+		//(경로 + 파일명 ==> 파일명 충돌 방지를 위해 유니크한 임의의 파일명을 생성)
+		String path = "C:\\ddit\\A_TeachingMaterial\\6.JspSrpgin\\upload";
+		String originalFileName = part.getOriginalFilename();			//	사용자가 업로드한 실제 파일명
+		String fileExt = FileUtil.getFileExtension(originalFileName);
+		String fileName = UUID.randomUUID().toString() + fileExt;		//	충돌 방지를 위한 임의의 파일명
+		File file = new File(path + File.separator + fileName);
+		
+		FileVo filevo = new FileVo();
+		filevo.setFile_name(fileName);
+		filevo.setFile_path(path);
+		filevo.setOrg_file_name(originalFileName);
+		filevo.setFile_ext(fileExt);
+		
+		try {
+			if(part.getSize() > 0) {
+				//정해진 path에 업로드 파일을 작성
+				part.transferTo(file);
+				
+				//데이터베이스에 첨부파일 정보 저장
+				//1. fileService
+				
+				//2. 로직 호출
+				int insertCnt = fileService.insertFile(filevo);
+
+			}
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		return "mvc/fileuploadView";
+	}
+	
 }
 

@@ -20,6 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.qos.logback.classic.Logger;
+import kr.or.ddit.file.util.FileUtil;
 import kr.or.ddit.hello.HelloControllerTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -76,6 +77,35 @@ public class MvcControllerTest {
 		
 		//model객체에서 minions 속성을 받아 사이즈가 3인지 테스트
 		assertEquals(3, minions.size());
+	}
+	
+	
+	@Test
+	public void fileuploadViewTest() throws Exception {
+		/***Given***/
+		MvcResult mvcResult = mockMvc.perform(get("/mvc/fileupload")).andReturn();
+
+		/***When***/
+		ModelAndView mav = mvcResult.getModelAndView();
+
+		/***Then***/
+		assertEquals("mvc/fileuploadView", mav.getViewName());
+	}
+	
+	
+	//테스트코드를 운영코드보다 먼저 작성하는 방법
+	//Test Driven Development (TDD)
+	@Test
+	public void getFileExtensionTest() {
+		/***Given***/
+		String fileName = "sally.png";
+
+		/***When***/
+		String ext = FileUtil.getFileExtension(fileName);
+
+		/***Then***/
+		assertEquals(".png", ext);
+
 	}
 	
 }

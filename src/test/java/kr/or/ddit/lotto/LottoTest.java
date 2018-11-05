@@ -16,8 +16,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import ch.qos.logback.classic.Logger;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {"classpath:kr/or/ddit/lotto/lotto.xml"})
 public class LottoTest {
 	Logger logger = (Logger) LoggerFactory.getLogger(LottoTest.class);
 	
@@ -27,14 +25,11 @@ public class LottoTest {
 	public void lottoTest() {
 		/***Given***/
 		
-		
-		
 		/***When***/
 		lotto = new Lotto();
 		lotto.setMaxNum(45);
 		lotto.setBallNum(6);
 		int[] lottos = lotto.execute();
-		
 		
 		/***Then***/
 		assertEquals(6, lottos.length);
