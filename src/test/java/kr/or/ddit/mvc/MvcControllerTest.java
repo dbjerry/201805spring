@@ -55,6 +55,7 @@ public class MvcControllerTest {
 		assertEquals("mvc/view", viewName);
 		
 		//model객체에서 minions 속성을 받아 사이즈가 3인지 테스트
+		//(controller에서 한 건 추가)
 		assertEquals(4, minions.size());
 	}
 
