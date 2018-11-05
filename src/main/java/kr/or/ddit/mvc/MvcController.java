@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.Resource;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import ch.qos.logback.classic.Logger;
 import kr.or.ddit.file.model.FileVo;
-import kr.or.ddit.file.service.FileService;
 import kr.or.ddit.file.service.IFileService;
 import kr.or.ddit.file.util.FileUtil;
 
@@ -32,6 +33,9 @@ import kr.or.ddit.file.util.FileUtil;
 public class MvcController {
 	
 	private Logger logger = (Logger) LoggerFactory.getLogger(MvcController.class);
+	
+	@Resource(name="fileService")
+	IFileService fileService;
 	
 	/* 
 	 * @RequestMapping이 붙은 메서드가 실행되기 전에 먼저 실행됨
@@ -90,7 +94,6 @@ public class MvcController {
 	//fileupload (파일전송)을 처리하기 위한 controller method (post)
 	@RequestMapping(value="/mvc/fileupload", method= {RequestMethod.POST})
 	public String fileupload(@RequestPart("uploadFile") MultipartFile part) {
-		IFileService fileService = new FileService();
 		
 		logger.debug("partSize : {}", part.getSize());
 		logger.debug("OriginalFileName : {}", part.getOriginalFilename());
