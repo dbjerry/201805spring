@@ -100,7 +100,7 @@ public class MvcController {
 		
 		//1. File객체 생성 
 		//(경로 + 파일명 ==> 파일명 충돌 방지를 위해 유니크한 임의의 파일명을 생성)
-		String path = "C:\\ddit\\A_TeachingMaterial\\6.JspSrpgin\\upload";
+		String path = "C:\\ddit\\A_TeachingMaterial\\6.JspSpring\\upload";
 		String originalFileName = part.getOriginalFilename();			//	사용자가 업로드한 실제 파일명
 		String fileExt = FileUtil.getFileExtension(originalFileName);
 		String fileName = UUID.randomUUID().toString() + fileExt;		//	충돌 방지를 위한 임의의 파일명
