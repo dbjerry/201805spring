@@ -158,7 +158,7 @@ public class UserDao implements UserDaoInf{
 		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
 		SqlSession session = factory.openSession();
 		
-		int updateCnt = session.update("jspuser.updateUser");
+		int updateCnt = session.update("jspuser.updateUser", userVo);
 		
 		session.commit();
 		session.close();

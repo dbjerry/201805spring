@@ -10,6 +10,11 @@ public class UserVo implements HttpSessionBindingListener{
 	private String addr1;	//	도로주소
 	private String addr2;	//	도로주소 상세
 	private String zipcd;	//	우편번호
+	/*
+	 * Date Type이라면
+	 * @DateTimeFormat(pattern="yyyy-MM-dd")
+	 * private Date birth;
+	 */
 	private String birth;	//	생일
 	private String email;	//	이메일
 	private String tel;		//	전화번호

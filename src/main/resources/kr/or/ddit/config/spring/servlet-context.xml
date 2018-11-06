@@ -12,6 +12,8 @@
 	<!-- spring에서 처리 불가능한 resource를 was의 default servlet으로 전달 -->
 	<mvc:default-servlet-handler/>
 	
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean"/>
+	
 	<context:annotation-config/>
 	
 	<context:component-scan base-package="kr.or.ddit" use-default-filters="false">
