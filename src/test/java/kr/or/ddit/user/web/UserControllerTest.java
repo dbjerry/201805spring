@@ -17,22 +17,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations= {"classpath:kr/or/ddit/config/spring/servlet-context.xml",
-								  "classpath:kr/or/ddit/config/spring/root-context.xml"})
-@WebAppConfiguration
-public class UserControllerTest {
+import kr.or.ddit.test.ControllerTestConfig;
 
-	@Autowired
-	private WebApplicationContext ctx;
-	
-	private MockMvc mockMvc;
-	
-	@Before
-	public void setup() {
-		mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-	}
-	
+public class UserControllerTest extends ControllerTestConfig{
 	
 	/**
 	* Method : loginViewTest

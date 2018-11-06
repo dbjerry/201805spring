@@ -7,6 +7,7 @@
 
 	<typeAliases>
 		<typeAlias type="kr.or.ddit.file.model.FileVo" alias="filevo"/>
+		<typeAlias type="kr.or.ddit.user.model.UserVo" alias="uservo"/>
 	</typeAliases>
 	
 	<environments default="development">
@@ -26,6 +27,7 @@
 	
 	<mappers>
 		<mapper resource="kr/or/ddit/config/db/file.xml" />
+		<mapper resource="kr/or/ddit/config/db/user.xml" />
 	</mappers>
 	
 	

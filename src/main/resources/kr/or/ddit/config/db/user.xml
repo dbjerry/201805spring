@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jspuser">
+	
+	<select id="selectUserAll" resultType="userVo">
+		SELECT * FROM jspuser
+	</select>
+	
+	<select id="selectUser" parameterType="String" resultType="userVo">
+		SELECT * FROM jspuser WHERE userid=#{userId}
+	</select>
+	
+	<select id="selectUserByVo" parameterType="userVo" resultType="userVo">
+		SELECT * FROM jspuser WHERE userid=#{userId}
+	</select>
+	
+	<select id="userAllList" resultType="userVo">
+		SELECT  ROWNUM "rnum",
+		        userId,
+		        name,
+		        TO_CHAR(birth, 'yyyy-MM-dd') birth
+		FROM    jspuser
+	</select>
+	
+	<select id="selectUserPageList" parameterType="kr.or.ddit.util.model.PageVo" resultType="userVo">
+		SELECT	*
+		FROM
+			(
+			SELECT ROWNUM rnum, a.*
+			FROM
+				(
+				SELECT	jspuser.*
+				FROM	jspuser
+				ORDER BY userId
+				) a
+			)
+		WHERE   rnum BETWEEN #{page} * #{pageSize} - 
+				(#{pageSize}-1) AND #{page} * #{pageSize}
+	</select>
+	
+	<select id="getUserCnt" resultType="int">
+		SELECT count(*) FROM jspuser
+	</select>
+	
+	<!-- 사용자 등록 -->
+	<insert id="insertUser" parameterType="userVo">
+		INSERT INTO jspuser
+		(userId, name, pass, addr1, addr2, zipcd, email, tel, birth, profile)
+		VALUES
+		(#{userId}, #{name}, #{pass}, #{addr1}, #{addr2}, #{zipcd}, #{email}, #{tel}, #{birth}, #{profile, jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 사용자 삭제 -->
+	<delete id="deleteUser" parameterType="String">
+		DELETE	FROM jspuser
+		WHERE	userId=#{userId}
+	</delete>
+	
+	<!-- 사용자 수정 -->
+	<update id="updateUser" parameterType="userVo">
+		UPDATE  jspuser
+		SET     profile  = #{profile},
+		        pass = #{pass},
+		        addr1 = #{addr1},
+		        addr2 = #{addr2},
+		        email = #{email},
+		        tel = #{tel}
+		WHERE   userId = #{userId}
+	</update>
+	
+</mapper>
+

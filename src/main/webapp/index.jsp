@@ -10,6 +10,9 @@
 	}
 </style>
 <title>index.jsp</title>
+<script type="text/javascript">
+	document.location="/user/loginView";
+</script>
 </head>
 <body>
 	<h2>index.jsp</h2>

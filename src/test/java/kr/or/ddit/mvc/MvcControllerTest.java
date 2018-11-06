@@ -22,25 +22,11 @@ import org.springframework.web.servlet.ModelAndView;
 import ch.qos.logback.classic.Logger;
 import kr.or.ddit.file.util.FileUtil;
 import kr.or.ddit.hello.HelloControllerTest;
+import kr.or.ddit.test.ControllerTestConfig;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:kr/or/ddit/config/spring/servlet-context.xml", 
-								 "classpath:kr/or/ddit/config/spring/root-context.xml"})
-@WebAppConfiguration	//	spring ioc 컨테이너 구성을 web환경에 맞게 구성
-public class MvcControllerTest {
+public class MvcControllerTest extends ControllerTestConfig{
 
 	Logger logger = (Logger) LoggerFactory.getLogger(HelloControllerTest.class);
-	
-	@Autowired
-	private WebApplicationContext ctx;	//	spring ioc 컨테이너
-	
-	private MockMvc mockMvc;			//	dispatcher servlet(front controller)
-	
-	@Before
-	public void setup() {
-		mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-	}
-	
 	
 	@Test
 	public void mvcViewTest() throws Exception {
