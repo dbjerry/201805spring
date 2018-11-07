@@ -13,6 +13,7 @@
 		<config>src/main/resources/kr/or/ddit/ioc/application-context-scan.xml</config>
 		<config>src/main/resources/kr/or/ddit/config/spring/root-context.xml</config>
 		<config>src/main/resources/kr/or/ddit/config/spring/servlet-context.xml</config>
+		<config>src/main/resources/kr/or/ddit/config/spring/interceptor-context.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

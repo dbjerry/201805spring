@@ -19,13 +19,21 @@
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 	</context:component-scan>
 	
+	<!-- view resolver -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0"/>
+	</bean>
+	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="1"/>
 		<property name="prefix" value="/WEB-INF/view/"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	<!-- hello : /WEB-INF/view/hello.jsp -->
 	
-	
+	<!-- JSON 처리용 view -->
+	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+	<bean id="TimesTablesView" class="kr.or.ddit.mvc.view.TimesTablesView"/>
 	<!-- multipartResolver 설정
 		해당 설정이 없으면 fileupload가 불가능
 	-->
@@ -44,6 +52,8 @@
 			</list>
 		</property>
 	</bean>
+	
+	
 	
 </beans>
 
