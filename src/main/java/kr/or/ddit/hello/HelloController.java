@@ -148,5 +148,10 @@ public class HelloController {
 		writer.write("</html>");
 	}
 	
+	@RequestMapping("/exception")
+	public String view() {
+		throw new ArithmeticException();
+	}
+	
 }
 
