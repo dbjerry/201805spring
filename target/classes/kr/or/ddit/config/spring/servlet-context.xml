@@ -12,8 +12,6 @@
 	<!-- spring에서 처리 불가능한 resource를 was의 default servlet으로 전달 -->
 	<mvc:default-servlet-handler/>
 	
-	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean"/>
-	
 	<context:annotation-config/>
 	
 	<context:component-scan base-package="kr.or.ddit" use-default-filters="false">
@@ -34,5 +32,17 @@
 		<property name="maxUploadSize" value="25000000"/>
 	</bean>
 	
+	<!-- type -->
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean"/>
+	
+	<!-- messageSource -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:kr/or/ddit/config/msg/error</value>
+			</list>
+		</property>
+	</bean>
+		
 </beans>
 
