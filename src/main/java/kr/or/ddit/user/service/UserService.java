@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import kr.or.ddit.user.dao.UserDao;
+import kr.or.ddit.user.dao.UserDaoInf;
 import kr.or.ddit.user.model.UserVo;
 import kr.or.ddit.util.model.PageVo;
 
@@ -16,7 +16,7 @@ import kr.or.ddit.util.model.PageVo;
 public class UserService implements UserServiceInf{
 	
 	@Resource(name="userDao")
-	UserDao dao;
+	UserDaoInf dao;
 	
 	@Override
 	public List<UserVo> selectUserAll() {

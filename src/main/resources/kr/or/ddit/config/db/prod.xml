@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="prod">
+	
+	<select id="selectProdPageList" parameterType="kr.or.ddit.util.model.PageVo" resultType="prodVo">
+		SELECT  *
+		FROM
+		        (
+		        SELECT  ROWNUM rnum,
+		                a.*
+		        FROM
+		                (
+		                SELECT  p.prod_id,
+		                        p.prod_name,
+		                        lp.lprod_nm,
+		                        TO_CHAR(p.prod_insdate, 'yyyy-MM-dd')
+		                FROM    prod p INNER JOIN lprod lp
+		                ON      (p.prod_lgu = lp.lprod_gu)
+		                ORDER BY 1
+		                ) a
+		        )
+		WHERE   rnum BETWEEN #{page} * #{pageSize} - 
+		        (#{pageSize}-1) AND #{page} * #{pageSize}
+	</select>
+	
+	<select id="getProdCnt" resultType="int">
+		SELECT COUNT(*) FROM prod
+	</select>
+	
+	<select id="selectProdDetail" parameterType="String" resultType="prodVo">
+		SELECT  p.prod_id,
+		        p.prod_name,
+		        lp.lprod_nm,
+		        b.buyer_name,
+		        b.buyer_mail
+		FROM    prod p INNER JOIN lprod lp
+		ON      (p.prod_lgu = lp.lprod_gu) INNER JOIN buyer b
+		ON      (p.prod_buyer = b.buyer_id)
+		WHERE   p.prod_id = #{prod_id}
+	</select>
+	
+</mapper>
+

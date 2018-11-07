@@ -88,6 +88,7 @@ public class UserController {
 		//키값을 지정하지 않아도 알아서 Map객체 내의 Key값으로 받아옴
 		model.addAllAttributes(resultMap);
 		
+		
 		return "user/userPageList";
 	}
 	
