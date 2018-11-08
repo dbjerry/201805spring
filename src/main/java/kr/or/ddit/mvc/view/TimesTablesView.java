@@ -24,6 +24,9 @@ public class TimesTablesView implements View{
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter pw = response.getWriter();
 		
+		String tables = request.getParameter("tables");
+		int i = Integer.parseInt(tables);
+		
 		pw.print("<!DOCTYPE html>");
 		pw.print("<html>");
 		pw.print("<head>");
@@ -39,9 +42,9 @@ public class TimesTablesView implements View{
 		
 		for(int j = 1; j < 10; j ++){
 			pw.print("	<tr>");
-			for(int i = 2; i < 10; i ++){
-				pw.print("		<td>" + i + "*" + j + "=" + i*j +"</td>");
-			}
+			//for(int i = 2; i < 10; i ++){
+				pw.print("		<td>" + i + "*" + j + "=" + (i * j) +"</td>");
+			//}
 			pw.print("	</tr>");		
 		}
 		pw.print("	</table>");
