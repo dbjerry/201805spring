@@ -65,6 +65,12 @@ public class UserVo implements HttpSessionBindingListener{
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
+	/*
+	 * public String getFormattedBirth(){
+	 * 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	 * 	return sdf.format(birth);
+	 * }
+	 */
 	public String getEmail() {
 		return email;
 	}

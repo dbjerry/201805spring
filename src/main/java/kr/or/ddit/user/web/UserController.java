@@ -83,13 +83,45 @@ public class UserController {
 	@RequestMapping("/userPageList")
 	public String userPageList(PageVo pageVo, Model model) {
 		
-		Map<String, Object> resultMap = userService.selectUserPageList(pageVo);
+		//Map<String, Object> resultMap = userService.selectUserPageList(pageVo);
 		
 		//키값을 지정하지 않아도 알아서 Map객체 내의 Key값으로 받아옴
-		model.addAllAttributes(resultMap);
-		
+		//model.addAllAttributes(resultMap);
 		
 		return "user/userPageList";
+	}
+	
+	
+	@RequestMapping("/userPageListAjax")
+	public String userPageListAjax(PageVo pageVo, Model model) {
+
+		Map<String, Object> resultMap = userService.selectUserPageList(pageVo);
+		
+		model.addAllAttributes(resultMap);
+		
+		return "jsonView";
+	}
+	
+	
+	@RequestMapping("/userPageListAjaxHtml")
+	public String userPageListAjaxHtml(PageVo pageVo, Model model) {
+
+		Map<String, Object> resultMap = userService.selectUserPageList(pageVo);
+		
+		model.addAllAttributes(resultMap);
+		
+		return "user/pageListHtml";
+	}
+	
+	
+	@RequestMapping("/userPagenationHtml")
+	public String userPagenationHtml(PageVo pageVo, Model model) {
+
+		Map<String, Object> resultMap = userService.selectUserPageList(pageVo);
+		
+		model.addAllAttributes(resultMap);
+		
+		return "user/pagenationHtml";
 	}
 	
 	

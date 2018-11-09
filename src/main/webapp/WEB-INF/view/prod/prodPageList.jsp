@@ -5,23 +5,12 @@
 <%@page import="kr.or.ddit.prod.model.ProdVo"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" href="../../favicon.ico">
-<title>Jsp</title>
-<%@include file="/WEB-INF/view/common/basicLib.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
-	.userClick {
-		cursor : pointer;
-	}
+.userClick {
+	cursor: pointer;
+}
 </style>
 <script>
 	$(document).ready(function(){
@@ -36,77 +25,125 @@
 			$("#frm").submit();
 		});
 		
+		//getProdList(1);
+		getProdListHtml(1);
+		getProdPagenationHtml(1);
 	});
+	
+	
+	function getProdListHtml(page){
+		var pageSize = 10;
+		
+		$.ajax({
+			url: "/prod/prodPageListHtml",
+			type: "GET",
+			data: "page="+page+"&pageSize="+pageSize,
+			success: function(data){
+				$("#prodList").html(data);
+			}
+		});
+	}
+
+	
+	function getProdPagenationHtml(page){
+		var pageSize = 10;
+		
+		$.ajax({
+			url: "/prod/prodPagenationHtml",
+			type: "GET",
+			data: "page="+page+"&pageSize="+pageSize,
+			success: function(data){
+				$(".pagination").html(data);
+			}
+		});
+	}
+	
+	
+	function getProdList(page){
+		var pageSize = 10;
+		console.log("page : " + page);
+		
+		$.ajax({
+			type: "GET",
+			url: "/prod/prodPageListAjax",
+			data: "page="+page+"&pageSize="+pageSize,
+			success: function(data){
+				console.log(data);
+				
+				var html = "";
+				$.each(data.prodList, function(idx, prod){
+					html += "<tr class='prodClick'>";
+					html += "	<td>" + prod.rnum + "</td>";
+					html += "	<td>" + prod.prod_id + "</td>";
+					html += "	<td>" + prod.prod_name + "</td>";
+					html += "	<td>" + prod.lprod_nm + "</td>";
+					html += "	<td>" + prod.prod_insdate + "</td>";
+					html += "</tr>";
+					
+				});
+				
+				$("#prodList").html("");
+				$("#prodList").html(html);
+				
+			}
+		});
+	}
 </script>
-</head>
 <form id="frm" action="/prod/prodDetail" method="get">
 	<input type="hidden" id="prodId" name="prod_id" />
 </form>
-<body>
 
-	<%-- header --%>
-	<%@include file="/WEB-INF/view/common/header.jsp"%>
+<div class="row">
+	<div class="col-sm-8 blog-main">
+		<h2 class="sub-header">제품</h2>
+		<div class="table-responsive">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>제품 아이디</th>
+						<th>제품명</th>
+						<th>제품그룹명</th>
+						<th>제품등록일</th>
+					</tr>
+				</thead>
 
-	<div class="container-fluid">
-		<div class="row">
+				<tbody id="prodList">
+					<%-- <c:forEach items="${prodList}" var="prodList"> --%>
 
-			<%-- left --%>
-			<%@include file="/WEB-INF/view/common/left.jsp"%>
+						<!-- <tr class="prodClick"> -->
+							<!-- <td>${prodList.rnum }</td> -->
+							<!-- <td>${prodList.prod_id }</td> -->
+							<!-- <td>${prodList.prod_name }</td> -->
+							<!-- <td>${prodList.lprod_nm }</td> -->
+							<!-- <td>${prodList.prod_insdate }</td> -->
+							<%-- <td><fmt:formatDate value="${userList.birth }" pattern="yyyy-MM-dd"/></td> --%>
+						<!-- </tr> -->
+					<%-- </c:forEach> --%>
+				</tbody>
+			</table>
+		</div>
 
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<div class="row">
-					<div class="col-sm-8 blog-main">
-						<h2 class="sub-header">제품</h2>
-						<div class="table-responsive">
-							<table class="table table-striped table-hover">
+		<a class="btn btn-default pull-right" href="/user/userForm">사용자 등록</a>
 
-								<tr>
-									<th>번호</th>
-									<th>제품 아이디</th>
-									<th>제품명</th>
-									<th>제품그룹명</th>
-									<th>제품등록일</th>
-								</tr>
-								
-								
-								<c:forEach items="${prodList}" var="prodList">
-									
-								<tr class="prodClick">
-									<td>${prodList.rnum }</td>
-									<td>${prodList.prod_id }</td>
-									<td>${prodList.prod_name }</td>
-									<td>${prodList.lprod_nm }</td>
-									<td>${prodList.prod_insdate }</td>
-<%-- 									<td><fmt:formatDate value="${userList.birth }" pattern="yyyy-MM-dd"/></td> --%>
-								</tr>
-								</c:forEach>
-							</table>
-						</div>
+		<div class="text-center">
+			<ul class="pagination">
+				<!-- <li><a href="/prod/prodPageList?page=1&pageSize=10" -->
+				<!-- <li><a href="javascript:getProdList(1);" aria-label="Previous"> -->
+						<!-- <span aria-hidden="true">&laquo;</span> -->
+				<!-- </a></li> -->
 
-						<a class="btn btn-default pull-right"
-							href="/user/userForm">사용자 등록</a>
-							
-						<div class="text-center">
-							<ul class="pagination">
-								<li><a href="/prod/prodPageList?page=1&pageSize=10"
-									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-								</a></li>
+				<%-- <c:forEach begin="1" end="${prodCnt }" var="i"> --%>
 
-								<c:forEach begin="1" end="${prodCnt }" var="i">
-								
-									<li><a href="/prod/prodPageList?page=${i }&pageSize=10">${i }</a></li>
-								</c:forEach>
+					<!-- <li><a href="/prod/prodPageList?page=${i }&pageSize=10">${i }</a></li> -->
+					<!-- <li><a href="javascript:getProdList(${i });">${i }</a></li> -->
+				<%-- </c:forEach> --%>
 
-								<li><a href="/prod/prodPageList?page=${prodCnt }&pageSize=10"
-									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-								</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
+				<!-- <li><a href="/prod/prodPageList?page=${prodCnt }&pageSize=10" -->
+					<!-- aria-label="Next"> <span aria-hidden="true">&raquo;</span> -->
+				<!-- </a></li> -->
+			</ul>
 		</div>
 	</div>
-</body>
-</html>
+</div>
 

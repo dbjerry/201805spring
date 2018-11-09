@@ -32,5 +32,13 @@
 		<put-attribute name="content" value="/WEB-INF/view/user/userUpdateForm.jsp"></put-attribute>
 	</definition>
 	
+	<definition name="prod/prodPageList" extends="basicLayout">
+		<put-attribute name="content" value="/WEB-INF/view/prod/prodPageList.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="prod/prodDetail" extends="basicLayout">
+		<put-attribute name="content" value="/WEB-INF/view/prod/prodDetail.jsp"></put-attribute>
+	</definition>
+
 </tiles-definitions>
 
