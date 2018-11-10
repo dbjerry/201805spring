@@ -10,22 +10,22 @@ import kr.or.ddit.board.service.IBoardService;
 
 @Configuration
 public class javaConfig {
-	
+
 	//boardDao spring bean 등록
 	// <bean id="boardDao" class="kr.or.ddit.board.dao.BoardDao"/>
-	@Bean
+	@Bean(name= {"boardDao"})
 	public IBoardDao getBoardDao() {
 		return new BoardDao();
 	}
-	
+
 	//boardService spring bean 등록
 	@Bean(name= {"boardServiceBean"})
 	public IBoardService boardService() {
 		IBoardService boardService = new BoardService();
 		boardService.setBoardDao(getBoardDao());
-		
+
 		return boardService;
 	}
-	
+
 }
 

@@ -2,82 +2,57 @@ package kr.or.ddit.user.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+import javax.annotation.Resource;
+
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import kr.or.ddit.config.db.SqlFactoryBuilder;
 import kr.or.ddit.user.model.UserVo;
 import kr.or.ddit.util.model.PageVo;
 
 @Repository(value="userDao")
 public class UserDao implements UserDaoInf{
+	@Resource(name="sqlSessionTemplate")
+	private SqlSessionTemplate template;
 	
 	// jspuser 테이블 데이터 전체 조회 쿼리
 	// select query id : selectUserAll
 	public List<UserVo> selectUserAll(){
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session = factory.openSession();
+		return template.selectList("jspuser.selectUserAll");
 		
-		List<UserVo> userList = session.selectList("jspuser.selectUserAll");
-		
-		session.close();
+		//session.close();
 		// selectOne : 데이터가 한 건일 때
 		// selectList : 여러건의 데이터를 조회
 		// 메서드 인자 : 문자열 = 네임스페이스(모듈명).쿼리아이디 
-		return userList;
-//		return session.selectOne("jspUser.selectUserAll");
+		//return userList;
+		//return session.selectOne("jspUser.selectUserAll");
 	}
 	
 	/* 회원정보조회 */
 	public UserVo selectUser(String userId){
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session = factory.openSession();
-		
-		UserVo selectUser = session.selectOne("jspuser.selectUser", userId);
-		
-		session.close();
+		return template.selectOne("jspuser.selectUser", userId);
 		
 		// selectOne : VO객체로 받으면 컬럼의 갯수와 상관없이 selectOne을 사용할 수 있다.
-		return selectUser;
+		//return selectUser;
 	}
 	
 	public UserVo selectUser(UserVo userVo){
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session = factory.openSession();
-		
-		UserVo selectUser = session.selectOne("jspuser.selectUserByVo", userVo);
-		
-		session.close();
+		return template.selectOne("jspuser.selectUserByVo", userVo);
 		
 		// selectOne : VO객체로 받으면 컬럼의 갯수와 상관없이 selectOne을 사용할 수 있다.
-		return selectUser;
+		//return selectUser;
 	}
 
 	@Override
 	public List<UserVo> userAllList() {
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session = factory.openSession();
 		
-		List<UserVo> userAllList = session.selectList("jspuser.userAllList"); 
-		
-		session.close();
-		
-		return userAllList;
+		return template.selectList("jspuser.userAllList"); 
 	}
 
 	@Override
 	public List<UserVo> selectUserPageList(PageVo pageVo) {
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session = factory.openSession();
-		
-		List<UserVo> pageList = session.selectList("jspuser.selectUserPageList", pageVo);
-		
-		System.out.println("pageList.size() : " + pageList.size());
-		
-		session.close();
-		
-		return pageList;
+
+		return template.selectList("jspuser.selectUserPageList", pageVo);
 	}
 
 	/**
@@ -89,17 +64,13 @@ public class UserDao implements UserDaoInf{
 	 */
 	@Override
 	public int getUserCnt() {
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session = factory.openSession();
+		return template.selectOne("jspuser.getUserCnt");
 		
-		int totalUserCnt = session.selectOne("jspuser.getUserCnt");
-		
-		session.close();
 		// selectOne : 데이터가 한 건일 때
 		// selectList : 여러건의 데이터를 조회
 		// 메서드 인자 : 문자열 = 네임스페이스(모듈명).쿼리아이디 
-		return totalUserCnt;
-//		return session.selectOne("jspUser.selectUserAll");
+		//return totalUserCnt;
+		//return session.selectOne("jspUser.selectUserAll");
 	}
 
 	/**
@@ -112,16 +83,8 @@ public class UserDao implements UserDaoInf{
 	 */
 	@Override
 	public int insertUser(UserVo userVo) {
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session = factory.openSession();
-		
-		int insertCnt = session.insert("jspuser.insertUser", userVo);
-		
-		session.commit();
-		session.close();
-		
-		return insertCnt;
-		
+
+		return template.insert("jspuser.insertUser", userVo);
 	}
 
 	/**
@@ -134,15 +97,8 @@ public class UserDao implements UserDaoInf{
 	 */
 	@Override
 	public int deleteUser(String userId) {
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session = factory.openSession();
 		
-		int deleteCnt = session.delete("jspuser.deleteUser");
-		
-		session.commit();
-		session.close();
-		
-		return deleteCnt;
+		return template.delete("jspuser.deleteUser");
 	}
 
 	/**
@@ -155,15 +111,8 @@ public class UserDao implements UserDaoInf{
 	 */
 	@Override
 	public int updateUser(UserVo userVo) {
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session = factory.openSession();
 		
-		int updateCnt = session.update("jspuser.updateUser", userVo);
-		
-		session.commit();
-		session.close();
-		
-		return updateCnt;
+		return template.update("jspuser.updateUser", userVo);
 	}
 	
 }

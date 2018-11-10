@@ -23,7 +23,8 @@ public class FileService implements IFileService{
 	*/
 	@Override
 	public int insertFile(FileVo filevo) {
-		return fileDao.insertFile(filevo);
+		int insertCnt = fileDao.insertFile(filevo);
+		return insertCnt;
 	}
 
 }

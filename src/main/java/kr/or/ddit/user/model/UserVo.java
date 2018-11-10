@@ -22,6 +22,15 @@ public class UserVo implements HttpSessionBindingListener{
 	private String alias;	//	별명
 	private int rnum;		//	번호
 	
+	/* 기본생성자 */
+	public UserVo() {}
+	
+	/* 생성자 */
+	public UserVo(String userId, String name) {
+		this.userId = userId;
+		this.name = name;
+	}
+	
 	/* getter & setter */
 	public String getUserId() {
 		return userId;

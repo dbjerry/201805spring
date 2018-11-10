@@ -11,7 +11,7 @@
 		<property name="user" value="${db.user}"/>
 		<property name="password" value="${db.password}"/>
 		<property name="driver" value="${db.driver}"/>
-		<property name="url" value="${db.url}"></property>
+		<property name="url" value="${db.url}"/>
 	</bean>
 
 </beans>

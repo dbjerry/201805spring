@@ -18,55 +18,55 @@ import kr.or.ddit.user.model.UserVo;
 import kr.or.ddit.util.model.PageVo;
 
 public class UserDaoTest extends ServiceDaoTestConfig{
-	
+
 	@Resource(name="userDao")
 	private UserDaoInf userDao;
-	
+
 	private final String TEST_USER_ID = "minions";
-	
+
 	@Test
 	public void getUserAllTest() {
 		/***Given***/
-		
+
 		/***When***/
 		List<UserVo> testList = userDao.selectUserAll();
 		System.out.println(testList);
-		
+
 		/***Then : 실제 데이터 count 5와 가져온 사이즈가 같은지 비교***/
-		assertEquals(110, testList.size());
+		assertEquals(116, testList.size());
 	}
 
 	@Test
 	public void selectUserTest() {
 		/***Given***/
-		
+
 		/***When***/
 		UserVo userTest = userDao.selectUser("brown");
 		System.out.println(userTest);
-		
+
 		/***Then***/
 		assertNotNull(userTest);
 		assertEquals("브라운", userTest.getName());
 		assertEquals("brown", userTest.getUserId());
 	}
-	
+
 	@Test
 	public void selectUserByVoTest() {
 		/***Given***/
 		UserVo userVo = new UserVo();
 		userVo.setUserId("sally");
-		
+
 		/***When***/
 		UserVo userByVo = userDao.selectUser(userVo);
 		System.out.println(userByVo);
-		
+
 		/***Then***/
 		assertNotNull(userByVo);
 		assertEquals("샐리", userByVo.getName());
 		assertEquals("sally", userByVo.getUserId());
-		
+
 	}
-	
+
 	@Test
 	public void selectUserPageListTest() {
 		/***Given***/
@@ -79,15 +79,15 @@ public class UserDaoTest extends ServiceDaoTestConfig{
 
 		/***Then***/
 		assertEquals(10, pageList.size());
-		
+
 	}
-	
+
 	@Test
 	public void insertUserTest() {
 		/***Given***/
-		
-		
-		
+
+
+
 		//uservo준비
 		UserVo uservo = new UserVo();
 		uservo.setUserId("minions2");
@@ -108,9 +108,9 @@ public class UserDaoTest extends ServiceDaoTestConfig{
 		assertEquals(1, insertCnt);
 
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Method : getUserCntTest
 	 * 작성자 : 김지태
@@ -123,11 +123,11 @@ public class UserDaoTest extends ServiceDaoTestConfig{
 
 		/***When***/
 		int totalUserCnt = userDao.getUserCnt();
-		
+
 		/***Then***/
-		assertEquals(110, totalUserCnt);
-		
+		assertEquals(116, totalUserCnt);
+
 	}
-	
+
 }
 

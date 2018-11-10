@@ -2,17 +2,20 @@ package kr.or.ddit.prod.dao;
 
 import java.util.List;
 
-import kr.or.ddit.config.db.SqlFactoryBuilder;
+import javax.annotation.Resource;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
+
 import kr.or.ddit.prod.model.ProdVo;
 import kr.or.ddit.util.model.PageVo;
-
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.springframework.stereotype.Repository;
 
 @Repository(value="prodDao")
 public class ProdDao implements ProdDaoInf {
 
+	@Resource(name="sqlSessionTemplate")
+	private SqlSessionTemplate template;
+	
 	/**
 	 * Method : selectProdPageList
 	 * 작성자 : 김지태
@@ -23,14 +26,8 @@ public class ProdDao implements ProdDaoInf {
 	 */
 	@Override
 	public List<ProdVo> selectProdPageList(PageVo pageVo) {
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session = factory.openSession();
 		
-		List<ProdVo> prodList = session.selectList("prod.selectProdPageList", pageVo);
-		
-		session.close();
-		
-		return prodList;
+		return template.selectList("prod.selectProdPageList", pageVo);
 	}
 
 	/**
@@ -42,18 +39,11 @@ public class ProdDao implements ProdDaoInf {
 	 */
 	@Override
 	public int getProdCnt() {
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session = factory.openSession();
-		
-		int totalProdCnt = session.selectOne("prod.getProdCnt");
-		
-		session.close();
-		
-		return totalProdCnt;
+
+		return template.selectOne("prod.getProdCnt");
 	}
 
 	/**
-	 * 
 	 * Method : selectProdDetail
 	 * 작성자 : 김지태
 	 * 변경이력 :
@@ -63,14 +53,8 @@ public class ProdDao implements ProdDaoInf {
 	 */
 	@Override
 	public ProdVo selectProdDetail(String prodId) {
-		SqlSessionFactory factory = SqlFactoryBuilder.getSqlSessionFactory();
-		SqlSession session = factory.openSession();
-		
-		ProdVo selectProd = session.selectOne("prod.selectProdDetail", prodId);
-		
-		session.close();
-		
-		return selectProd;
+
+		return template.selectOne("prod.selectProdDetail", prodId);
 	}
 
 }
