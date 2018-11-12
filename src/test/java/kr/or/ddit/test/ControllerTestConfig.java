@@ -19,7 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 //service, dao에 대한 설정파일도 필요하다
 @ContextConfiguration(locations= {"classpath:kr/or/ddit/config/spring/root-context.xml", 
 								  "classpath:kr/or/ddit/config/spring/servlet-context.xml",
-								  "classpath:kr/or/ddit/config/spring/datasource-context.xml",
+								  "classpath:kr/or/ddit/config/spring/datasource-test-context.xml",
 								  "classpath:kr/or/ddit/config/spring/transaction-context.xml"})
 //spring container를 웹 기반에서 활용 가능한 WebApllicationContext로 생성
 @WebAppConfiguration
