@@ -134,3 +134,7 @@ INSERT INTO jspuser VALUES ('xxxx14','xxxx','4affea9ab1a488ab4b83227cfbed2e18b94
 INSERT INTO jspuser VALUES ('xxxx17','xxxx','4affea9ab1a488ab4b83227cfbed2e18b94cbcf61d32e46aa15b7e0c413b650','대전시 중구 대흥동 76','2층 대덕인재개발원','34940','18/10/10','xxxx@gmail.com','123123123','');
 INSERT INTO jspuser VALUES ('xxxx20','xxxx','4affea9ab1a488ab4b83227cfbed2e18b94cbcf61d32e46aa15b7e0c413b650','대전시 중구 대흥동 76','2층 대덕인재개발원','34940','18/10/10','xxxx@gmail.com','123123123','');
 
+
+-- 월단위 달력 생성 데이터 초기화
+DELETE FROM calendar WHERE ymd LIKE '201811%';
+

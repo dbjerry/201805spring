@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="util">
+
+	<!-- 월단위 달력 생성 -->
+	<insert id="makeMonthlyCalendar" parameterType="String">
+		<![CDATA[
+		INSERT INTO calendar
+		SELECT  TO_CHAR(TO_DATE(#{ym} || '01', 'yyyyMMdd') + (LEVEL -1), 'yyyyMMdd') ymd,
+				SYSDATE
+		FROM    dual
+		CONNECT BY LEVEL <= LAST_DAY(TO_DATE(#{ym}, 'yyyyMM')) -
+		        TO_DATE(#{ym} || '01', 'yyyyMMdd') + 1
+		]]>
+	</insert>
+
+</mapper>
+
