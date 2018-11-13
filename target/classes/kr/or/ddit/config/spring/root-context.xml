@@ -9,7 +9,7 @@
 	<context:annotation-config />
 
 	<!-- component-scan은 기본적으로 @Controller, @Service, @Dao, @Component 어노테이션을 
-		사용한 클래스를 대사으로 spring bean으로 만듬 
+		사용한 클래스를 대상으로 spring bean으로 만듬 
 	
 		기본 필터(controller, service, dao, component)를 끄고
 		스캔하고자 하는 service, dao에 대해서만 스캔하도록 include-filter를 이용하여 설정
